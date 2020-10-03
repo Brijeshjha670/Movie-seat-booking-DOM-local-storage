@@ -4,11 +4,21 @@ const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
 
-const ticketPrice = parseInt(movieSelect.value);
+let ticketPrice = +movieSelect.value;
 
 //update total and count
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll('.row .seat.selected');
+
+  //copy selected seat in to arr
+  //map through array
+  //return a new array indexes
+
+  const seatsIndex = [...selectedSeats].map(function (seat) {
+    return [...seats].indexOf(seat);
+  });
+
+  console.log(seatsIndex);
 
   const selectedSeatsCount = selectedSeats.length;
 
@@ -16,6 +26,13 @@ function updateSelectedCount() {
   total.innerText = selectedSeatsCount * ticketPrice;
 }
 
+//Movie select event
+movieSelect.addEventListener('change', (e) => {
+  ticketPrice = +e.target.value;
+  updateSelectedCount();
+});
+
+//seat click event
 container.addEventListener('click', (e) => {
   if (
     e.target.classList.contains('seat') &&
