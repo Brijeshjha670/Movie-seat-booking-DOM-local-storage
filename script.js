@@ -27,6 +27,8 @@ function updateSelectedCount() {
   // }); THIS CAN ALSO BE WRITTEN AS
   const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
 
+  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+
   console.log(seatsIndex);
 
   const selectedSeatsCount = selectedSeats.length;
@@ -39,12 +41,20 @@ function updateSelectedCount() {
 function populateUI() {
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
 
+  console.log(selectedSeats);
+
   if (selectedSeats !== null && selectedSeats.length > 0) {
-    seats.forEach((seats, index) => {
-      if (selectedSeats.indexof(index) > -1) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) {
         seat.classList.add('selected');
       }
     });
+  }
+
+  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+
+  if (selectedMovieIndex != null) {
+    movieSelect.selectedIndex = selectedMovieIndex;
   }
 }
 
@@ -66,3 +76,6 @@ container.addEventListener('click', (e) => {
     updateSelectedCount();
   }
 });
+
+//Initial cout and total set
+updateSelectedCount();
